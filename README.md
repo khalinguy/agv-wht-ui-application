@@ -1,2 +1,4 @@
-# Portfolio
-My portfolio https://khalinguy.github.io/
+# The-First-Store
+
+# Demo
+https://my-story-khalinguy.herokuapp.com/

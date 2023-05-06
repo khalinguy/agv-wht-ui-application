@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css">
+    <title>Warehouse Truck</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+</head>
+<body id="bg-img">
+    <!-- <py-script src="test.py"></py-script> -->
+    <header>
+        <div class="bell-btn">
+            <form action="/login" method="post" id="changeset">
+                <input type='submit' value='Fixed'>           
+            </form>
+            <img id ="bellring" src="noti_button.png">
+        </div>
+        <div class="menu-btn">
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+        </div>
+
+        <nav class="menu">
+            <div class="menu-branding">
+                <div class="portrait">
+                    
+                </div>
+            </div>
+            <ul class="menu-nav">
+                <li class="nav-item current">
+                    <a href="#home" class="nav-link">
+                       Location
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">
+                        AGV Error state
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#work" class="nav-link">
+                        Emergency stop
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">
+                        FrontScanner Proximity Scanning
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="home">
+        <img id ="mapview" src="map_new._body.png">
+    </main>
+    <footer id="main-footer">
+        Copyright &copy; 2023
+    </footer>
+    <script>
+        // Select DOM items
+const menuBtn = document.querySelector('.menu-btn');
+const menu = document.querySelector('.menu');
+const menuNav = document.querySelector('.menu-nav');
+const menuBranding = document.querySelector('.menu-branding');
+const navItems = document.querySelectorAll('.nav-item');
+
+// Set intial state of the menu
+let showMenu = false;
+let AGVstate = true;
+
+menuBtn.addEventListener('click', toggleMenu);
+menuBtn.addEventListener('click', AGVStateChange);
+
+function AGVStateChange() {
+    if (AGVstate) {
+        localStorage.setItem('imgsrc', "dist/img/AGV-Green.png");
+
+        AGVstate = false;
+    } else {
+        localStorage.setItem('imgsrc', "dist/img/AGV-Red.png");
+
+        AGVstate = true;
+    }
+}
+
+function toggleMenu() {
+    if(!showMenu) {
+        menuBtn.classList.add('close');
+        menu.classList.add('show');
+        menuNav.classList.add('show');
+        menuBranding.classList.add('show');
+        navItems.forEach(item => item.classList.add('show'));
+
+        // Set Menu State
+        showMenu = true;
+    } else {
+        menuBtn.classList.remove('close');
+        menu.classList.remove('show');
+        menuNav.classList.remove('show');
+        menuBranding.classList.remove('show');
+        navItems.forEach(item => item.classList.remove('show'));
+        // Set Menu State
+        showMenu = false;
+    }
+}
+
+navItems.forEach(item => item.addEventListener('click', clearMenu));
+
+function clearMenu() {
+    menuBtn.classList.remove('close');
+    menu.classList.remove('show');
+    menuNav.classList.remove('show');
+    menuBranding.classList.remove('show');
+    navItems.forEach(item => item.classList.remove('show'));
+}
+    </script>
+</body>
+</html>
