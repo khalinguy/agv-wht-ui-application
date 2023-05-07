@@ -1,3 +1,1 @@
-import webbrowser
-
-webbrowser.open("https://google.com")
+print('Hello World!')

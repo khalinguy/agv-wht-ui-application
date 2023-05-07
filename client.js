@@ -2,7 +2,7 @@ console.log('Client-side code running');
 
 $(document).ready(function () {
     $("#changeset").click(function () {
-       $.post("/login",
+       $.post("/fixed",
           {
              name: "viSion",
              designation: "Professional gamer"

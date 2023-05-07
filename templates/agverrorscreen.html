@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css">
+    <title>AGV Screen</title>
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
+    <header>
+
+    </header>
+        <form action="/agvToErorState" method="post" id="helpbtn">               
+            <button type="submit" id="button-submit">
+                <img id ="helpbtn" src="/AGV-help-button.png">
+            </button>           
+        </form>           
+    <main>
+        <img id="AGV" src="/{%IMG%}">
+     </main>
+     <form action="/agvfixed" method="post" id="agvfixedbutton">               
+        <button type="submit" id="button-submit">
+            <img id ="agvfixedbutton" src="/fixed-button.png">
+        </button>           
+    </form>
+    <footer id="main-footer">
+        Copyright &copy; 2023
+    </footer>
+    <script>
+        const agvimage = document.getElementById('AGV');
+        console.log(agvimage.src)
+        console.log(agvimage.src.includes("Green"))
+        if (agvimage.src.includes("Green")) {
+            document.getElementById('agvfixedbutton').style = "display:none";
+        }
+    </script>
+</body>
+</html>
