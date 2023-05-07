@@ -13,12 +13,11 @@ const json = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
 const laptopData = JSON.parse(json);
 
 app.post('/login', (req, res) => {
-    let pyshell = new PythonShell('test.py');
 
-    pyshell.on('message', function (message) {
-    // received a message sent from the Python script (a simple "print" statement)
-    console.log(message);
-    });
+    PythonShell.run('test.py', null).then(messages=>{
+        console.log('finished');
+      });
+
     const click = {clickTime: new Date()};
     console.log(click);
     console.log(setNewLaptop);
