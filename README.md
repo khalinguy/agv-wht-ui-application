@@ -1,4 +1,8 @@
-# The-First-Store
-
 # Demo
-https://my-story-khalinguy.herokuapp.com/
+
+npm install nodemon -g
+
+nodemon 
+
+
+run at port 8080
