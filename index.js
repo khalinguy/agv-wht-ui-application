@@ -6,34 +6,28 @@ const app = express();
 const port = process.env.PORT || 8080;
 let {PythonShell} = require('python-shell');
 var agvNormalState=true;
-var agvErrorscreenTrigger=true;
 
 app.use(express.static(__dirname + '/templates'));
 
-const json = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
-const laptopData = JSON.parse(json);
-
 app.post('/fixed', (req, res) => {
-    PythonShell.run('test.py', null).then(messages=>{
+    PythonShell.run('test.py', null, function(err,results){
+        console.log(results);
         console.log('finished');
       });
+    res.redirect('/main');
+});
 
+app.post('/fixedfromwht', (req, res) => {
     if(!agvNormalState) {
         agvNormalState = true;
     }
-    
     res.redirect('/main');
 });
 
 app.post('/agvfixed', (req, res) => {
-    PythonShell.run('test.py', null).then(messages=>{
-        console.log('finished');
-      });
-
     if(!agvNormalState) {
         agvNormalState = true;
     }
-
     res.redirect('/agvstartscreen');
 });
 
@@ -45,7 +39,6 @@ app.post('/agvToErorState', (req, res) => {
 });
 
 app.post('/agvToErorFromWHT', (req, res) => {
-    console.log(agvNormalState);
     if(agvNormalState) {
         agvNormalState = false;
         res.redirect('/main');
@@ -55,7 +48,6 @@ app.post('/agvToErorFromWHT', (req, res) => {
 });
 
 app.post('/agvToEror', (req, res) => {
-    console.log(agvNormalState);
     if(agvNormalState) {
         agvNormalState = false;
         res.redirect('/agverrorscreen');
@@ -64,12 +56,44 @@ app.post('/agvToEror', (req, res) => {
     }
 });
 
+app.post('/left', (req, res) => {
+    PythonShell.run('data/script/left.py', null, function(err,results){
+        console.log(results);
+        console.log('finished');
+      });
+    res.redirect('/remotecontrol');
+});
+
+app.post('/right', (req, res) => {
+    PythonShell.run('data/script/right.py', null, function(err,results){
+        console.log(results);
+        console.log('finished');
+      });
+    res.redirect('/remotecontrol');
+});
+
+app.post('/forward', (req, res) => {
+    PythonShell.run('data/script/forward.py', null, function(err,results){
+        console.log(results);
+        console.log('finished');
+      });
+    res.redirect('/remotecontrol');
+});
+
+app.post('/backward', (req, res) => {
+    PythonShell.run('data/script/backward.py', null, function(err,results){
+        console.log(results);
+        console.log('finished');
+      });
+    res.redirect('/remotecontrol');
+});
+
 app.get('*', (req, res) => {
     if (req.url != '/favicon.ico') {
         const pathName = url.parse(req.url, true).pathname;
         const id = url.parse(req.url, true).query.id;
 
-        // PRODUCT OVERVIEW
+        // MAIN MAPVIEW
         if (pathName === '/main' || pathName === '/') {
             res.writeHead(200, {'Content-type': 'text/html'});
             fs.readFile(`${__dirname}/templates/mapview.html`, 'utf-8', (err, data) => {
@@ -83,28 +107,36 @@ app.get('*', (req, res) => {
             });
 
         }
-        // LAPTOP DETAILS
+        // AGV START SCREEN
         else if (pathName === '/agvstartscreen') {
             res.writeHead(200, {'Content-type': 'text/html'});
 
             fs.readFile(`${__dirname}/templates/agvstartscreen.html`, 'utf-8', (err, data) => {
-                res.end(data);
-            });
-        }
-
-        else if (pathName === '/agverrorscreen') {
-            res.writeHead(200, {'Content-type': 'text/html'});
-
-            fs.readFile(`${__dirname}/templates/agverrorscreen.html`, 'utf-8', (err, data) => {
-                if(!agvNormalState) {
-                    data = data.replace(/{%IMG%}/g, laptopData[1].image);
+                if (!agvNormalState) {
+                    data = data.replace(/{%IMG%}/g, "AGV-Red.png");
+                    res.render(data);
                 } else {
-                    data = data.replace(/{%IMG%}/g, laptopData[0].image);
+                    data = data.replace(/{%IMG%}/g, "AGV-Green.png");
                 }
                 res.end(data);
             });
         }
 
+        // AGV INTERACTIVE SCREEN
+        else if (pathName === '/agverrorscreen') {
+            res.writeHead(200, {'Content-type': 'text/html'});
+
+            fs.readFile(`${__dirname}/templates/agverrorscreen.html`, 'utf-8', (err, data) => {
+                if(!agvNormalState) {
+                    data = data.replace(/{%IMG%}/g, "AGV-Red.png");
+                } else {
+                    data = data.replace(/{%IMG%}/g, "AGV-Green.png");
+                }
+                res.end(data);
+            });
+        }
+
+        // WHT ERROR MANAGE
         else if (pathName === '/whterrormanage') {
             res.writeHead(200, {'Content-type': 'text/html'});
 
@@ -113,6 +145,7 @@ app.get('*', (req, res) => {
             });
         }
 
+        // REMOTE CONTROL
         else if (pathName === '/remotecontrol') {
             res.writeHead(200, {'Content-type': 'text/html'});
 
@@ -138,15 +171,3 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port);
-
-function replaceTemplate(originalHtml, laptop) {
-    let output = originalHtml.replace(/{%PRODUCTNAME%}/g, laptop.productName);
-    output = output.replace(/{%IMG%}/g, laptop.image);
-    output = output.replace(/{%PRICE%}/g, laptop.price);
-    output = output.replace(/{%SCREEN%}/g, laptop.screen);
-    output = output.replace(/{%CPU%}/g, laptop.cpu);
-    output = output.replace(/{%STORAGE%}/g, laptop.storage);
-    output = output.replace(/{%RAM%}/g, laptop.ram);
-    output = output.replace(/{%ID%}/g, laptop.id);
-    return output;
-}

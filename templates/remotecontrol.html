@@ -16,7 +16,7 @@
     <!-- <py-script src="test.py"></py-script> -->
     <header>
         <div class="back-btn">
-            <form action="/main" method="get">
+            <form action="/whterrormanage" method="get">
                 <button id="button-submit">
                     <img id ="menubtn-image" src="/back-button.png">
                 </button>  
@@ -64,8 +64,44 @@
         </nav>
     </header>
     <main id="home">
+        <div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
         <img id ="mapview" src="/control-view-direction.png">
     </main>
+    <div class="navigate">
+            <div class="left">
+                <form action="/left" method="post">
+                    <button id="button-submit">
+                        <img id ="left-btn" src="/left.png">
+                    </button>  
+                </form>
+            </div>
+            <div class="right">
+                <form action="/right" method="post">
+                    <button id="button-submit">
+                        <img id ="right-btn" src="/right.png">
+                    </button>  
+                </form>
+            </div>
+        <div class="forward">
+            <form action="/forward" method="post">
+                <button id="button-submit">
+                    <img id ="forward-btn" src="/forward.png">
+                </button>  
+            </form>
+        </div>
+        <div class="backward">
+            <form action="/backward" method="post">
+                <button id="button-submit">
+                    <img id ="backward-btn" src="/backward.png">
+                </button>  
+            </form>
+        </div>
+    </div>
     <footer id="main-footer">
         Copyright &copy; 2023
     </footer>

@@ -25,7 +25,7 @@
                 <img id ="blackbox-image-error-manage-2" src="/error-manage-noti-button.png">
             </button>  
         </div>
-        <div class="back-btn">
+        <div class="back-btn" id="back-button">
             <form action="/main" method="get">
                 <button id="button-submit">
                     <img id ="menubtn-image" src="/back-button.png">
@@ -74,20 +74,26 @@
         </nav>
     </header>
     <main id="home">
+        <div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
         <img id ="mapview" src="/WHT-AGV-error.png">
+        <div id ="combo">
+            <form action="/remotecontrol" method="get" id ="remote-control-wht-img" >               
+                <button type="submit" id="button-submit">
+                    <img id ="manage-btn" manage-btn src="/remote-control.png">
+                </button>           
+            </form>
+            <form action="/fixedfromwht" method="post" id ="agvfixedbutton-wht-img">               
+                <button type="submit" id="button-submit">
+                    <img id ="manage-btn" src="/fixed-button.png">
+                </button>           
+            </form>
+        </div>
     </main>
-    <div id ="combo">
-        <form action="/remotecontrol" method="get" id ="remote-control-wht-img" >               
-            <button type="submit" id="button-submit">
-                <img id ="manage-btn" manage-btn src="/remote-control.png">
-            </button>           
-        </form>
-        <form action="/fixed" method="post" id ="agvfixedbutton-wht-img">               
-            <button type="submit" id="button-submit">
-                <img id ="manage-btn" src="/fixed-button.png">
-            </button>           
-        </form>
-    </div>
     <footer id="main-footer">
         Copyright &copy; 2023
     </footer>
@@ -98,6 +104,9 @@ const menu = document.querySelector('.menu');
 const menuNav = document.querySelector('.menu-nav');
 const menuBranding = document.querySelector('.menu-branding');
 const navItems = document.querySelectorAll('.nav-item');
+const blackboxCreate = document.getElementById('blackbox-image-div');
+const errorNoti = document.getElementById('blackbox-image-error');
+const backButton = document.getElementById('back-button');
 
 // Set intial state of the menu
 let showMenu = false;
