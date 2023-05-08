@@ -14,17 +14,31 @@
 </head>
 <body>
     <header>
+
     </header>
-    <main>
-        <form action="/agvToEror" method="post" id="helpbtn">               
+        <form action="/agvToErorState" method="post" id="helpbtn">               
             <button type="submit" id="button-submit">
                 <img id ="helpbtn" src="/AGV-help-button.png">
             </button>           
-        </form>       
-        <img id="AGV" src="/AGV-Green.png">
+        </form>           
+    <main>
+        <img id="AGV" src="/{%IMG%}">
      </main>
+     <form action="/agvfixed" method="post" id="agvfixedbutton">               
+        <button type="submit" id="button-submit">
+            <img id ="agvfixedbutton" src="/fixed-button.png">
+        </button>           
+    </form>
     <footer id="main-footer">
         Copyright &copy; 2023
     </footer>
+    <script>
+        const agvimage = document.getElementById('AGV');
+        console.log(agvimage.src)
+        console.log(agvimage.src.includes("Green"))
+        if (agvimage.src.includes("Green")) {
+            document.getElementById('agvfixedbutton').style = "display:none";
+        }
+    </script>
 </body>
 </html>

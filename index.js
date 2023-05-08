@@ -3,7 +3,7 @@ const http = require('http');
 const url = require('url');
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 let {PythonShell} = require('python-shell');
 var agvNormalState=true;
 
@@ -41,10 +41,8 @@ app.post('/agvToErorState', (req, res) => {
 app.post('/agvToErorFromWHT', (req, res) => {
     if(agvNormalState) {
         agvNormalState = false;
-        res.redirect('/main');
-    } else {
-        res.redirect('/main');
     }
+    res.redirect('/main');
 });
 
 app.post('/agvToEror', (req, res) => {
@@ -114,7 +112,6 @@ app.get('*', (req, res) => {
             fs.readFile(`${__dirname}/templates/agvstartscreen.html`, 'utf-8', (err, data) => {
                 if (!agvNormalState) {
                     data = data.replace(/{%IMG%}/g, "AGV-Red.png");
-                    res.render(data);
                 } else {
                     data = data.replace(/{%IMG%}/g, "AGV-Green.png");
                 }
