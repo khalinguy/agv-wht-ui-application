@@ -3,7 +3,7 @@
   "description": "Our sample Node to Heroku app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js"
   },
   "dependencies": {
     "debug": ">=2.6.9",
